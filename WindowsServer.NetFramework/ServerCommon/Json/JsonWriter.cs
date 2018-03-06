@@ -110,6 +110,10 @@ namespace WindowsServer.Json
             {
                 Write(name, (Int64)value);
             }
+            else if (value is Decimal)
+            {
+                Write(name, (decimal)value);
+            }
             else if (value is Boolean)
             {
                 Write(name, (Boolean)value);
@@ -155,6 +159,12 @@ namespace WindowsServer.Json
         }
 
         public void Write(string name, long value)
+        {
+            WriteName(name);
+            _sb.Append(value);
+            _sb.Append(',');
+        }
+        public void Write(string name, decimal value)
         {
             WriteName(name);
             _sb.Append(value);
