@@ -284,6 +284,7 @@
     <Compile Include="Threading\OnceReaderWriterLockDictionary.cs" />
     <Compile Include="Threading\SingleExecution.cs" />
     <Compile Include="Utlitity\HttpWebRequestClient.cs" />
+    <Compile Include="Utlitity\SerializeXmlUtil.cs" />
     <Compile Include="Utlitity\TimeUtility.cs" />
     <Compile Include="Validation\MailValidator.cs" />
     <Compile Include="Caching\BaseCacheContainer.cs" />
