@@ -27,6 +27,7 @@ namespace WindowsServer.Utlitity
                     {
                         var xs = new XmlSerializer(typeof(T));
                         var ret = (T)xs.Deserialize(reader);
+
                         return ret;
                     }
                 }
@@ -59,10 +60,10 @@ namespace WindowsServer.Utlitity
                 encoding = UTF8Encoding.UTF8;
             }
 
-            XmlSerializer mySerializer = new XmlSerializer(typeof(T));
-            using (MemoryStream ms = new MemoryStream(encoding.GetBytes(xml)))
+            var mySerializer = new XmlSerializer(typeof(T));
+            using (var ms = new MemoryStream(encoding.GetBytes(xml)))
             {
-                using (StreamReader sr = new StreamReader(ms, encoding))
+                using (var sr = new StreamReader(ms, encoding))
                 {
                     return (T)mySerializer.Deserialize(sr);
                 }
@@ -85,9 +86,29 @@ namespace WindowsServer.Utlitity
                 encoding = UTF8Encoding.UTF8;
             }
 
-            using (FileStream file = new FileStream(path, FileMode.Create, FileAccess.Write))
+            using (var file = new FileStream(path, FileMode.Create, FileAccess.Write))
             {
                 XmlSerializeInternal(file, o, encoding);
+            }
+        }
+
+        /// <summary>
+        /// 将一个对象序列化为XML字符串
+        /// </summary>
+        /// <param name="o">要序列化的对象</param>
+        /// <param name="encoding">编码方式</param>
+        /// <returns>序列化产生的XML字符串</returns>
+        public static string XmlSerialize(object o, Encoding encoding = null)
+        {
+            using (var stream = new MemoryStream())
+            {
+                XmlSerializeInternal(stream, o, encoding);
+
+                stream.Position = 0;
+                using (var reader = new StreamReader(stream, encoding))
+                {
+                    return reader.ReadToEnd();
+                }
             }
         }
 
@@ -99,7 +120,7 @@ namespace WindowsServer.Utlitity
             if (encoding == null)
                 throw new ArgumentNullException("encoding could not be null");
 
-            XmlSerializer serializer = new XmlSerializer(o.GetType());
+            var serializer = new XmlSerializer(o.GetType());
 
             var settings = new XmlWriterSettings();
             settings.Indent = true;
@@ -107,7 +128,7 @@ namespace WindowsServer.Utlitity
             settings.Encoding = encoding;
             settings.IndentChars = "    ";
 
-            using (XmlWriter writer = XmlWriter.Create(stream, settings))
+            using (var writer = XmlWriter.Create(stream, settings))
             {
                 serializer.Serialize(writer, o);
                 writer.Close();
