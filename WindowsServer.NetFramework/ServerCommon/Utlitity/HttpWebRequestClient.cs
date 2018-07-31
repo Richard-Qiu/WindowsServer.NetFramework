@@ -12,8 +12,6 @@ namespace WindowsServer.Utlitity
 {
     public class HttpWebRequestClient
     {
-        //private static readonly ILog log = LogManager.GetLogger(typeof(HttpWebRequestClient));
-
         private static void Init_Request(ref System.Net.HttpWebRequest request)
         {
             request.Accept = "text/json,*/*;q=0.5";
@@ -121,7 +119,7 @@ namespace WindowsServer.Utlitity
             }
             catch (Exception ex)
             {
-                log.Error(ex);
+                throw;
             }
 
             return null;

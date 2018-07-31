@@ -50,6 +50,9 @@
       <HintPath>..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.122.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <HintPath>..\packages\Oracle.ManagedDataAccess.12.2.1100\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -76,6 +79,7 @@
     <Compile Include="DataBase\DbExecutionParameters.cs" />
     <Compile Include="DataBase\DbHelper.cs" />
     <Compile Include="DataBase\GuidDbSelector.cs" />
+    <Compile Include="DataBase\Oracle\OracleDataAccess.cs" />
     <Compile Include="DataBase\SaasDb.cs" />
     <Compile Include="DataBase\SaasDbSelector.cs" />
     <Compile Include="DataBase\SingleDb.cs" />
@@ -382,6 +386,7 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
